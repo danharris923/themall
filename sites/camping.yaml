@@ -1,0 +1,43 @@
+# CampGear Deals - Outdoor & Camping Equipment
+site_name: camping
+site_title: "CampGear Deals"
+site_category: outdoor
+affiliate_tag: promopenguin-20
+
+# Search terms for Amazon scraping
+search_terms:
+  - camping tent
+  - sleeping bag
+  - camping backpack
+  - camping stove
+  - camping cookware
+  - headlamp
+  - camping chair
+  - camping hammock
+  - water filter
+  - trekking poles
+
+# Frontend categories
+categories:
+  - name: tents
+    keywords: [tent, shelter]
+  - name: sleeping
+    keywords: [sleeping bag, sleeping pad, mat, pillow]
+  - name: backpacks
+    keywords: [backpack, pack, bag]
+  - name: cooking
+    keywords: [stove, cookware, pot, pan, utensil]
+
+# Output configuration
+output:
+  json_path: frontends/camping/data/products.json
+  xlsx_path: search_scraped_camping.xlsx
+
+# Deployment (to be configured when frontend is ready)
+deploy:
+  enabled: false
+  hostinger_user: u943122315
+  hostinger_host: 147.93.42.128
+  hostinger_port: 65002
+  hostinger_path: ~/camping.hostingersite.com/
+  frontend_build_path: frontends/camping/out/

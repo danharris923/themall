@@ -1,0 +1,43 @@
+# AudioGear Pro - Studio Audio Equipment Deals
+site_name: audiogear
+site_title: "AudioGear Pro"
+site_category: audio
+affiliate_tag: promopenguin-20
+
+# Search terms for Amazon scraping
+search_terms:
+  - studio headphones
+  - studio microphone
+  - audio interface
+  - studio monitors
+  - condenser microphone
+  - xlr cable
+  - pop filter
+  - microphone stand
+  - headphone amplifier
+  - audio mixer
+
+# Frontend categories (for filtering products)
+categories:
+  - name: headphones
+    keywords: [headphone, earphone, earbud]
+  - name: microphones
+    keywords: [microphone, mic]
+  - name: studio-monitors
+    keywords: [monitor, speaker]
+  - name: interfaces
+    keywords: [interface, audio interface, usb audio]
+
+# Output configuration
+output:
+  json_path: themall/frontend/v0-audiogear-pro/data/products.json
+  xlsx_path: search_scraped_audiogear.xlsx
+
+# Deployment
+deploy:
+  enabled: true
+  hostinger_user: u943122315
+  hostinger_host: 147.93.42.128
+  hostinger_port: 65002
+  hostinger_path: ~/deeppink-heron-839409.hostingersite.com/
+  frontend_build_path: themall/frontend/v0-audiogear-pro/out/

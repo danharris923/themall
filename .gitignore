@@ -31,8 +31,11 @@ themall/logs/*.log
 # Output files
 search_scraped_data_*.xlsx
 search_offgrid_scraped_*.xlsx
+search_scraped_*.xlsx
 *.xlsx
 themall/frontend/data/products.json
+themall/frontend/v0-audiogear-pro/data/products.json
+frontends/*/data/products.json
 
 # Node modules
 node_modules/

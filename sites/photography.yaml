@@ -1,0 +1,43 @@
+# PhotoGear Deals - Photography Equipment
+site_name: photography
+site_title: "PhotoGear Deals"
+site_category: photography
+affiliate_tag: promopenguin-20
+
+# Search terms for Amazon scraping
+search_terms:
+  - camera lens
+  - camera tripod
+  - camera bag
+  - camera strap
+  - lens filter
+  - camera flash
+  - memory card
+  - camera battery
+  - lens cleaning kit
+  - camera remote
+
+# Frontend categories
+categories:
+  - name: lenses
+    keywords: [lens, zoom, prime, telephoto, wide angle]
+  - name: accessories
+    keywords: [tripod, bag, strap, filter, battery, memory card]
+  - name: lighting
+    keywords: [flash, light, softbox, reflector]
+  - name: storage
+    keywords: [memory card, sd card, cf card, storage]
+
+# Output configuration
+output:
+  json_path: frontends/photography/data/products.json
+  xlsx_path: search_scraped_photography.xlsx
+
+# Deployment (to be configured when frontend is ready)
+deploy:
+  enabled: false
+  hostinger_user: u943122315
+  hostinger_host: 147.93.42.128
+  hostinger_port: 65002
+  hostinger_path: ~/photography.hostingersite.com/
+  frontend_build_path: frontends/photography/out/

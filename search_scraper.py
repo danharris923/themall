@@ -10,6 +10,8 @@ from datetime import datetime
 from playwright.async_api import async_playwright
 from colorama import init, Fore, Style
 import urllib.parse
+import argparse
+import yaml
 
 # Themall engine imports
 import sys
@@ -236,6 +238,29 @@ def read_search_terms_from_file(filename="search_terms.txt"):
         terms = ["solar panel", "generator"]
     
     return terms
+
+def load_site_config(site_name):
+    """Load site configuration from YAML file"""
+    config_path = os.path.join(SCRIPT_DIR, 'sites', f'{site_name}.yaml')
+
+    if not os.path.exists(config_path):
+        print(f"{Fore.RED}Error: Site config not found: {config_path}{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}Available sites:{Style.RESET_ALL}")
+        sites_dir = os.path.join(SCRIPT_DIR, 'sites')
+        if os.path.exists(sites_dir):
+            for f in os.listdir(sites_dir):
+                if f.endswith('.yaml'):
+                    print(f"  - {f.replace('.yaml', '')}")
+        return None
+
+    try:
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)
+            print(f"{Fore.GREEN}✅ Loaded config for site: {config.get('site_title', site_name)}{Style.RESET_ALL}")
+            return config
+    except Exception as e:
+        print(f"{Fore.RED}Error loading site config: {e}{Style.RESET_ALL}")
+        return None
 
 async def human_like_scroll(page):
     """Scroll in a human-like pattern to render products."""
@@ -1057,6 +1082,39 @@ async def main():
     # Ensure browser is installed
     await ensure_browser_installed()
 
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Amazon Deal Scraper - Multi-Site Support')
+    parser.add_argument('--site', type=str, help='Site name (loads config from sites/<name>.yaml)')
+    parser.add_argument('--list-sites', action='store_true', help='List available sites')
+    args = parser.parse_args()
+
+    # List available sites if requested
+    if args.list_sites:
+        print(f"{Fore.CYAN}Available sites:{Style.RESET_ALL}")
+        sites_dir = os.path.join(SCRIPT_DIR, 'sites')
+        if os.path.exists(sites_dir):
+            for f in sorted(os.listdir(sites_dir)):
+                if f.endswith('.yaml'):
+                    site_name = f.replace('.yaml', '')
+                    config_path = os.path.join(sites_dir, f)
+                    try:
+                        with open(config_path, 'r') as cf:
+                            config = yaml.safe_load(cf)
+                            print(f"  {Fore.GREEN}• {site_name:<15}{Style.RESET_ALL} - {config.get('site_title', 'N/A')}")
+                    except:
+                        print(f"  {Fore.YELLOW}• {site_name:<15}{Style.RESET_ALL} - (error loading config)")
+        else:
+            print(f"{Fore.RED}No sites directory found{Style.RESET_ALL}")
+        return
+
+    # Load site config if specified
+    site_config = None
+    if args.site:
+        site_config = load_site_config(args.site)
+        if not site_config:
+            print(f"{Fore.RED}Failed to load site config. Exiting.{Style.RESET_ALL}")
+            return
+
     # Initialize themall system (database, configs, etc.)
     try:
         db, categories, settings, secrets = initialize_themall_system()
@@ -1075,9 +1133,13 @@ async def main():
         secrets = {}
         has_wordpress = False
 
-    # Read search terms from file
-    search_terms = read_search_terms_from_file()
-    print(Fore.CYAN + f"Loaded {len(search_terms)} search terms" + Style.RESET_ALL)
+    # Read search terms from site config or file
+    if site_config and 'search_terms' in site_config:
+        search_terms = site_config['search_terms']
+        print(Fore.CYAN + f"Loaded {len(search_terms)} search terms from {args.site} config" + Style.RESET_ALL)
+    else:
+        search_terms = read_search_terms_from_file()
+        print(Fore.CYAN + f"Loaded {len(search_terms)} search terms from file" + Style.RESET_ALL)
 
     # Load proxy configuration
     proxy_config = None
@@ -1108,7 +1170,6 @@ async def main():
             if browser_path:
                 print(Fore.GREEN + f"Using browser at: {browser_path}" + Style.RESET_ALL)
                 # Set environment variable for Playwright
-                import os
                 os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.path.dirname(os.path.dirname(os.path.dirname(browser_path)))
 
             # Launch the browser with stealth settings
@@ -1257,10 +1318,13 @@ async def main():
         df = await clean_duplicates(df)
         print(f"Scraped {len(all_products)} products from search terms")
         timestamp = datetime.now().strftime('%y%m%d-%H%M')
-        
-        # Always use the current working directory for simplicity
+
+        # Determine output filename from site config or use default
         current_dir = os.getcwd()
-        filename = os.path.join(current_dir, f'search_scraped_data_{timestamp}.xlsx')
+        if site_config and 'output' in site_config and 'xlsx_path' in site_config['output']:
+            filename = os.path.join(current_dir, site_config['output']['xlsx_path'])
+        else:
+            filename = os.path.join(current_dir, f'search_scraped_data_{timestamp}.xlsx')
         
         # Save the original Excel file
         df.to_excel(filename, index=False)
@@ -1281,10 +1345,19 @@ async def main():
         print(Fore.CYAN + "\n" + "=" * 60)
         print(Fore.CYAN + "SAVING TO JSON FOR PHP FRONTEND")
         print(Fore.CYAN + "=" * 60)
+
+        # Determine JSON output path from site config or use default
+        if site_config and 'output' in site_config and 'json_path' in site_config['output']:
+            json_output_path = site_config['output']['json_path']
+            site_category = site_config.get('site_category', 'audio')
+        else:
+            json_output_path = "themall/frontend/v0-audiogear-pro/data/products.json"
+            site_category = "audio"
+
         json_path = save_products_json(
             df,  # Use original df with correct column names
-            output_path="themall/frontend/data/products.json",
-            site_category="audio"
+            output_path=json_output_path,
+            site_category=site_category
         )
         print(Fore.GREEN + f"✅ Frontend JSON ready at: {json_path}")
         print(Fore.CYAN + "=" * 60 + "\n")
