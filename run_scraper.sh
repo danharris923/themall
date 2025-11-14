@@ -8,6 +8,13 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR"
 
+# Determine Python command early
+if [ -d "venv" ] && [ -f "venv/bin/python3" ]; then
+    PYTHON_CMD="venv/bin/python3"
+else
+    PYTHON_CMD="python3"
+fi
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -43,7 +50,7 @@ case "$1" in
         exit 0
         ;;
     --list|-l)
-        python3 search_scraper.py --list-sites
+        $PYTHON_CMD search_scraper.py --list-sites
         exit 0
         ;;
     *)
@@ -56,14 +63,15 @@ if [ ! -f "sites/${SITE_NAME}.yaml" ]; then
     echo -e "${RED}Error: Site config not found: sites/${SITE_NAME}.yaml${NC}"
     echo ""
     echo -e "${YELLOW}Available sites:${NC}"
-    python3 search_scraper.py --list-sites
+    $PYTHON_CMD search_scraper.py --list-sites
     exit 1
 fi
 
-# Check if venv exists
-if [ -d "venv" ]; then
-    echo -e "${GREEN}Activating virtual environment...${NC}"
-    source venv/bin/activate
+# Show which Python we're using
+if [ "$PYTHON_CMD" = "venv/bin/python3" ]; then
+    echo -e "${GREEN}Using virtual environment...${NC}"
+else
+    echo -e "${YELLOW}Warning: venv not found, using system python3${NC}"
 fi
 
 # Run the scraper
@@ -71,7 +79,7 @@ echo -e "${CYAN}Starting scraper for site: ${SITE_NAME}${NC}"
 echo -e "${CYAN}$(date)${NC}"
 echo ""
 
-python3 search_scraper.py --site "$SITE_NAME"
+$PYTHON_CMD search_scraper.py --site "$SITE_NAME"
 
 echo ""
 echo -e "${GREEN}✅ Scraping completed!${NC}"
