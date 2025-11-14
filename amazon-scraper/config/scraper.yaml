@@ -1,0 +1,57 @@
+# Amazon Scraper Configuration
+# Works for both local development and DigitalOcean production
+
+# Timing & rate limits
+delays:
+  min_page_delay: 5.0      # Minimum seconds between pages (avoid detection)
+  max_page_delay: 10.0     # Maximum seconds between pages
+  scroll_delay: 1.5        # Delay while scrolling (human-like)
+  retry_delay: 5.0         # Delay before retry on failure
+  captcha_wait: 30.0       # Wait time if captcha detected
+
+# Scraping limits
+limits:
+  max_pages_per_category: 5      # Max pages per category (5 pages = ~100 products)
+  max_products_per_site: 100     # Max products to post per WordPress site
+  max_retries: 3                 # Max retry attempts on failure
+  timeout: 30000                 # Page load timeout (ms)
+
+# CSS Selectors for Amazon.ca Deals Page
+# Update these if Amazon changes their layout
+selectors:
+  # Deals page uses different selectors than search
+  product_card: '[data-deal-id], [data-testid="deal-card"]'
+  product_card_fallback: '.DealCard-module__card, .Grid-module__gridDisplayGrid'
+  title: 'a[aria-label], h3, h2 a span'
+  image: 'img[data-a-hires], img.s-image, img[src*="media-amazon"]'
+  price_current: '.a-price .a-offscreen, [data-testid="price"]'
+  price_original: '.a-text-price .a-offscreen, [data-a-strike="true"]'
+  rating: '[aria-label*="out of 5 stars"]'
+  next_page: '.s-pagination-next:not(.s-pagination-disabled), [data-testid="pagination-next"]'
+  brand: '.a-size-base-plus, [data-testid="brand-name"]'
+
+# Deal filtering (processed by engine/deal_filter.py)
+filters:
+  min_discount_percent: 20       # Minimum 20% off
+  min_rating: 4.0                # Minimum 4 stars
+  min_reviews: 10                # Minimum 10 reviews
+  max_price: 500.0               # Maximum price CAD
+  use_brand_filter: true         # Filter by brands in brands.yaml
+  brands_file: 'config/brands.yaml'  # Path to brand whitelist
+
+# Browser settings
+browser:
+  headless: true                 # Set false for debugging
+  viewport_width: 1920
+  viewport_height: 1080
+  locale: 'en-CA'
+  timezone: 'America/Toronto'
+  geolocation:
+    latitude: 43.6532            # Toronto coordinates
+    longitude: -79.3832
+
+# Cache settings
+cache:
+  enabled: true
+  ttl_hours: 24                  # Cache products for 24 hours
+  database: 'data/scraper_cache.db'

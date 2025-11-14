@@ -1,0 +1,33 @@
+# Amazon Scraper Requirements
+# Compatible with Ubuntu 24.04 LTS (local & DigitalOcean)
+
+# Web scraping
+playwright==1.48.0
+beautifulsoup4==4.12.3
+lxml==5.3.0
+
+# HTTP & async
+requests==2.32.3
+aiohttp==3.10.10
+
+# Data processing
+pandas==2.2.3
+pyyaml==6.0.2
+
+# Database
+sqlalchemy==2.0.36
+
+# Utilities
+python-dotenv==1.0.1
+colorama==0.4.6
+python-dateutil==2.9.0
+
+# Logging & monitoring
+rich==13.9.4
+
+# WordPress integration (for later)
+python-wordpress-xmlrpc==2.3
+
+# Testing
+pytest==8.3.3
+pytest-playwright==0.6.2

@@ -1,0 +1,105 @@
+# Quality Brand Filters
+# Only scrape products from these brands to avoid Chinese junk
+
+audio_equipment:
+  tier1_professional:
+    # Audio Interfaces
+    - Focusrite
+    - Universal Audio
+    - PreSonus
+    - Apogee
+    - MOTU
+    - Audient
+    - RME
+    - Antelope Audio
+    - SSL
+    - Solid State Logic
+
+    # Studio Monitors
+    - KRK
+    - Yamaha
+    - Adam Audio
+    - JBL Professional
+    - Genelec
+    - Focal
+    - Mackie
+    - Neumann
+    - Dynaudio
+
+    # Microphones
+    - Shure
+    - Audio-Technica
+    - Rode
+    - AKG
+    - Sennheiser
+    - Blue Microphones
+    - Electrovoice
+    - CAD Audio
+    - MXL
+
+    # Headphones (Studio)
+    - Beyerdynamic
+    - V-MODA
+
+  tier2_prosumer:
+    # MIDI Controllers
+    - Akai Professional
+    - Novation
+    - Native Instruments
+    - Arturia
+    - M-Audio
+    - Nektar
+    - Alesis
+
+    # DJ Equipment
+    - Pioneer DJ
+    - Numark
+    - Denon DJ
+    - Reloop
+    - Hercules
+
+    # Recording/Live Sound
+    - Behringer
+    - Tascam
+    - Zoom
+    - Allen & Heath
+    - Soundcraft
+
+  tier3_consumer:
+    # Hi-Fi/Home Audio
+    - Bose
+    - Sonos
+    - Bang & Olufsen
+    - Bowers & Wilkins
+    - KEF
+    - Klipsch
+    - Polk Audio
+    - Edifier
+    - Audioengine
+    - Cambridge Audio
+    - Sony
+
+# You can add brand lists for other niches here
+pet_supplies:
+  premium:
+    - Royal Canin
+    - Hill's Science Diet
+    - Purina Pro Plan
+    - Blue Buffalo
+    - Wellness
+    - Orijen
+    - Acana
+
+electronics:
+  premium:
+    - Samsung
+    - LG
+    - Sony
+    - Panasonic
+    - Philips
+    - Dell
+    - HP
+    - Lenovo
+    - ASUS
+    - Logitech
+    - Anker

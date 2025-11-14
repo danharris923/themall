@@ -1,0 +1,84 @@
+# Amazon Canada Deals URLs
+# Using simple bubble-id format - easier and works great!
+# Brand filtering happens in post-processing via brands.yaml
+
+audio_equipment:
+  name: "Audio Equipment & Recording"
+  wordpress_site: "https://youraudiosite.com"
+  bubble_id: "electronics"  # Electronics bubble includes audio gear
+  categories:
+    - name: "Electronics Deals (Audio Equipment)"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=electronics"
+      # Will filter for audio brands in post-processing
+
+pet_supplies:
+  name: "Pet Supplies"
+  wordpress_site: "https://yourpetsite.com"
+  bubble_id: "pets"
+  categories:
+    - name: "Pet Supplies Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=pets"
+
+home_kitchen:
+  name: "Home & Kitchen"
+  wordpress_site: "https://yourhomesite.com"
+  bubble_id: "kitchen"
+  categories:
+    - name: "Home & Kitchen Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=kitchen"
+
+electronics:
+  name: "Electronics & Gadgets"
+  wordpress_site: "https://yourelectronicssite.com"
+  bubble_id: "electronics"
+  categories:
+    - name: "Electronics Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=electronics"
+
+sports_outdoors:
+  name: "Sports & Outdoors"
+  wordpress_site: "https://yoursportssite.com"
+  bubble_id: "sports"
+  categories:
+    - name: "Sports & Outdoors Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=sports"
+
+toys_games:
+  name: "Toys & Games"
+  wordpress_site: "https://yourtoyssite.com"
+  bubble_id: "toys"
+  categories:
+    - name: "Toys & Games Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=toys"
+
+beauty_personal:
+  name: "Beauty & Personal Care"
+  wordpress_site: "https://yourbeautysite.com"
+  bubble_id: "beauty"
+  categories:
+    - name: "Beauty & Personal Care Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=beauty"
+
+automotive:
+  name: "Automotive Parts & Accessories"
+  wordpress_site: "https://yourautosite.com"
+  bubble_id: "automotive"
+  categories:
+    - name: "Automotive Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=automotive"
+
+tools_improvement:
+  name: "Tools & Home Improvement"
+  wordpress_site: "https://yourtoolssite.com"
+  bubble_id: "tools"
+  categories:
+    - name: "Tools & Home Improvement Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=tools"
+
+garden_outdoor:
+  name: "Garden & Outdoor Living"
+  wordpress_site: "https://yourgardensite.com"
+  bubble_id: "lawn-garden"
+  categories:
+    - name: "Garden & Outdoor Deals"
+      url: "https://www.amazon.ca/deals?ref_=nav_cs_gb&bubble-id=lawn-garden"

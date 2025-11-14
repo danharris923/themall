@@ -1,0 +1,50 @@
+# Amazon Scraper Cron Jobs
+# Runs daily scraping for each site niche
+# Staggered by 15 minutes to avoid overloading droplet
+#
+# Log rotation: logs are saved per-run in logs/ directory
+# Old logs should be cleaned periodically (add cleanup cron)
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Format: minute hour day month weekday command
+# Runs daily at 1 AM EST (adjust for your timezone)
+
+# Audio Equipment - 1:00 AM
+0 1 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site audio_equipment --headless >> logs/cron_audio.log 2>&1
+
+# Pet Supplies - 1:15 AM
+15 1 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site pet_supplies --headless >> logs/cron_pets.log 2>&1
+
+# Home & Kitchen - 1:30 AM
+30 1 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site home_kitchen --headless >> logs/cron_home.log 2>&1
+
+# Electronics - 1:45 AM
+45 1 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site electronics --headless >> logs/cron_electronics.log 2>&1
+
+# Sports & Outdoors - 2:00 AM
+0 2 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site sports_outdoors --headless >> logs/cron_sports.log 2>&1
+
+# Toys & Games - 2:15 AM
+15 2 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site toys_games --headless >> logs/cron_toys.log 2>&1
+
+# Beauty & Personal Care - 2:30 AM
+30 2 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site beauty_personal --headless >> logs/cron_beauty.log 2>&1
+
+# Automotive - 2:45 AM
+45 2 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site automotive --headless >> logs/cron_auto.log 2>&1
+
+# Tools & Home Improvement - 3:00 AM
+0 3 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site tools_improvement --headless >> logs/cron_tools.log 2>&1
+
+# Garden & Outdoor - 3:15 AM
+15 3 * * * cd ~/themall && source venv/bin/activate && python scripts/scrape_deals.py --site garden_outdoor --headless >> logs/cron_garden.log 2>&1
+
+# Clean up old logs (keep last 7 days) - 4:00 AM daily
+0 4 * * * find ~/themall/amazon-scraper/logs -name "*.log" -mtime +7 -delete
+
+# Note: After scraping completes, you'll want to:
+# 1. Run deal filtering (engine/deal_filter.py)
+# 2. Post to WordPress (engine/wordpress_manager.py)
+# These steps will be added once engine module is ready

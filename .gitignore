@@ -1,0 +1,72 @@
+# Secrets and credentials
+amazon_credentials.json
+proxy_config.json
+themall/config/secrets.json
+amazon-scraper/DROPLET_ACCESS.md
+amazon-scraper/QUICKSTART.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+venv/
+env/
+
+# Databases
+*.db
+*.db-journal
+themall/data/*.db
+themall/data/*.db-journal
+
+# Logs
+*.log
+scraper_output.log
+themall/logs/*.log
+
+# Output files
+search_scraped_data_*.xlsx
+search_offgrid_scraped_*.xlsx
+*.xlsx
+themall/frontend/data/products.json
+
+# Node modules
+node_modules/
+package-lock.json
+.next/
+out/
+.cache/
+
+# WordPress Docker
+wordpress-docker/db-data/
+wordpress-docker/wp-content/uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
+
+# Environment
+.env
+.env.local
+.env.*.local

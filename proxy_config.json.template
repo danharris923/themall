@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "server": "http://proxy.example.com:8080",
+  "username": "your_username",
+  "password": "your_password",
+  "note": "Set enabled to true and add your proxy details. See PROXY_SETUP.md for provider recommendations."
+}
